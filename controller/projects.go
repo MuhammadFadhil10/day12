@@ -56,7 +56,7 @@ func GetHome(w http.ResponseWriter, r *http.Request) {
 			panic(err.Error())
 		}
 		
-		project.Duration = helper.GetDuration(project.StartDate.Format("2006-01-02"), project.EndDate.Format("2006-01-02"))
+		project.Duration = helper.GetDuration(project.StartDate, project.EndDate)
 		project.Description = helper.CutString(project.Description, 30)
 		project.Name = helper.CutString(project.Name, 20)
 
@@ -284,7 +284,7 @@ func GetProjectDetail(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(scanErr.Error())
 			return
 		}
-		project.Duration = helper.GetDuration(project.StartDate.Format("2006-01-02"), project.EndDate.Format("2006-01-02"))
+		project.Duration = helper.GetDuration(project.StartDate, project.EndDate)
 		project.StringStartDate = project.StartDate.Format("January 02, 2006")
 		project.StringEndDate = project.EndDate.Format("January 02, 2006")
 	}

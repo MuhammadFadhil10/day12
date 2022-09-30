@@ -5,16 +5,11 @@ import (
 	"time"
 )
 
-func GetDuration(startDate string, endDate string) string {
-	// fmt.Println(startDate)
-	// fmt.Println(endDate)
+func GetDuration(startDate time.Time, endDate time.Time) string {
 	var duration string
-	layout := "2006-01-02"
-	parsedStartDate, _ := time.Parse(layout,startDate)
-	parsedEndDate, _ := time.Parse(layout,endDate)
 
-	var startMs = parsedStartDate.UnixMicro()
-	var endMs = parsedEndDate.UnixMicro()
+	var startMs = startDate.UnixMicro()
+	var endMs = endDate.UnixMicro()
 
 	margin := ((endMs - startMs) / (1000 * 60 * 60 * 24) / 1000)
 
