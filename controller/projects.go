@@ -331,6 +331,7 @@ func DeleteProject(w http.ResponseWriter, r *http.Request) {
 	queryString := `
 		DELETE FROM public.tb_projects WHERE id = $1
 	`
+	
 
 	_, queryErr := connection.Conn.Exec(context.Background(), queryString, projectId)
 

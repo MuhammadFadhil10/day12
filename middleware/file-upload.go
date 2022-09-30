@@ -10,8 +10,9 @@ import (
 
 func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// menerima file upload dari frontend
+
 		file, fileHandler, fileErr := r.FormFile("uploadImage")
+		
 
 		if fileErr != nil {
 			fmt.Println(fileErr.Error())
@@ -21,7 +22,6 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 		defer file.Close()
 		fmt.Printf("Success upload %+v\n", fileHandler.Filename)
 
-		// mengubah nama image
 		tempFile, err := ioutil.TempFile("uploads", "image-*"+fileHandler.Filename)
 
 		if err != nil {
@@ -31,14 +31,13 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 		}
 		defer tempFile.Close()
 
-		// membaca file
 		fileBytes, fileByteErr := ioutil.ReadAll(file);
 
 		if fileByteErr != err {
 			fmt.Println(fileByteErr.Error())
 		}
 
-		// create image temporary file
+		
 		tempFile.Write(fileBytes)
 
 		data := tempFile.Name()
