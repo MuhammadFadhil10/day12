@@ -255,8 +255,6 @@ func UpdateProject(w http.ResponseWriter, r *http.Request) {
 	if queryErr != nil {
 		panic(queryErr.Error())
 	}
-
-	
 	
 	http.Redirect(w,r,"/",http.StatusFound)
 }
@@ -281,8 +279,6 @@ func GetProjectDetail(w http.ResponseWriter, r *http.Request) {
 
 	var project = ProjectData{}
 	for data.Next() {
-		// var project = ProjectData{}
-
 		var scanErr = data.Scan(&project.Id,&project.Name, &project.StartDate, &project.EndDate, &project.Description, &project.Technologies, &project.Image, &project.AuthorName)
 		if scanErr != nil {
 			fmt.Println(scanErr.Error())
@@ -331,7 +327,6 @@ func DeleteProject(w http.ResponseWriter, r *http.Request) {
 	queryString := `
 		DELETE FROM public.tb_projects WHERE id = $1
 	`
-	
 
 	_, queryErr := connection.Conn.Exec(context.Background(), queryString, projectId)
 

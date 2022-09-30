@@ -16,6 +16,12 @@ type User struct {
 	Email, Name, Password string
 }
 
+// type SessionF struct {
+// 	Id int
+// 	Email,Name,Flash string
+// 	IsLogin bool
+// }
+
 func GetRegisterForm(w http.ResponseWriter, r *http.Request) {
 	view, viewErr := template.ParseFiles("views/register.html", "views/layout/navigation.html")
 
@@ -91,13 +97,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(scanErr)
 		}
 	}
-	fmt.Println(user.Id)
 
 	passwordMatch := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 
 	if passwordMatch != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		http.Redirect(w,r,"/form-login", 301)
 		w.Write([]byte("Wrong password!, " + passwordMatch.Error()));
 		return;
 	}
